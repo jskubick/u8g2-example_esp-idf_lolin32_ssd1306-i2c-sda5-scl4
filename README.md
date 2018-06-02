@@ -29,12 +29,11 @@ Now, do the following ("c:\path\to\some-directory" is the path to wherever you w
 `git clone https://github.com/olikraus/u8g2.git`
 
 
+## Critical next steps:
 
-Now, open the MinGW32 shell, and...
+open the MinGW32 shell, and...
 
 `cd /c/path/to/some-directory/u8g2-example_esp-idf_lolin32_ssd1306-i2c-sda5-scl4` (note the forward slashes and notation for the c: drive)
-
-## Critical next steps:
 
 Ensure your LOLIN32 board is connected to the USB port, and that you DON'T already have a serial monitor window opened to it
 
@@ -42,7 +41,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
 
  cursor-down to "Serial flasher config".
  
- * Make sure "Default serial port" is set to the correct port. If you're running Windows, this will be something like `COM7` 
+ * Make sure "Default serial port" is set to the correct port. If you're running Windows, this will be something like `COM7`
  
  Additional settings from "Serial flasher config" --
  
@@ -52,7 +51,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  * 'make monitor' baud rate: 115200bps
  
- * Exit, Exit.
+ * Exit, Exit. When asked whether you want to save your new configuration, say yes.
  
  The moment of truth: `make monitor flash`
  
@@ -62,3 +61,31 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  Follow the directions at https://esp-idf.readthedocs.io/en/latest/get-started/eclipse-setup.html (note & follow the alternate setup instructions for Windows,
  if applicable).
+ 
+ Alternate, time-saving approach that might work if you get lucky (but is likely to be at least slightly broken if you're reading this in 2019 or later). I've learned the hard way that step-by-step directions involving Github projects and IDEs have a half-life of approximately 3-9 months before one or more updates break them. You've been warned. Hence, the previous paragraph.
+ 
+ **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell. Trust me... if it won't build and flash from the shell, it's going to be at least as dysfunctional in Eclipse, *guaranteed.*
+ 
+ 1. Load Eclipse
+ 
+ 2. File -> Open projects from file system
+ 
+ 3. Click `Directory...` button (after "Import source"), and select the directory where you checked out this repository (ex: c:\path\to\some-directory\u8g2-example_esp-idf_lolin32_ssd1306-i2c-sda5-scl4)
+ 
+ 4. It should find the project to import as "Eclipse project" & select its checkbox. Click `Finish`
+ 
+ 5. To build and flash, you can right-click "Build Targets -> flash" under the Project in Project Explorer.
+ 
+ ## Tips
+ 
+ * Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target from within Eclipse. If you get what appears to be an "access denied" error in Eclipse involving the serial port, this is almost certainly the REAL problem.
+ 
+ * If you've gotten spoiled by IntelliJ and Android Studio, remember... Eclipse does NOT (by default, at least) auto-save source files for you when you build. I went through several hours of frustration before discovering this. If changes you've made don't seem to be getting flashed, make sure you saved the changed source files first.
+ 
+ * If it doesn't build from the commandline, it's NOT going to build in Eclipse. Anything that causes a commandline build to fail will almost certainly cause an Eclipse build to fail as well... except you'll have a much harder time figuring out what the actual problem *is.*
+ 
+ ## Credits
+ 
+ Neil Kolban's esp32-snippets example code -- https://github.com/nkolban/esp32-snippets/tree/master/hardware/displays/U8G2
+ 
+ Oli Kraus' u8g2 library -- https://github.com/olikraus/u8g2
