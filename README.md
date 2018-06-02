@@ -7,7 +7,7 @@ If you figure out how to turn it into a CLion or PlatformIO project, PLEASE fork
 
 # How to build
 
-If you haven't already done it, go to https://esp-idf/readthedocs.io & follow the directions in the "Get Started" section to download and set up the ESP-IDF
+If you haven't already done it, go to https://esp-idf.readthedocs.io & follow the directions in the "Get Started" section to download and set up the ESP-IDF
 toolchain. It's extremely well-written (in fact, it's just about the finest documentation I've ever SEEN for an embedded development
 platform. Espressif has fantastic technical writers.)
 
@@ -44,11 +44,13 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  * Make sure "Default serial port" is set to the correct port. If you're running Windows, this will be something like `COM7` 
  
- * If desired, set the default baud rate to 230400 or 921600.
+ Additional settings from "Serial flasher config" --
  
- * After flashing (Reset after flashing) and change if necessary.
+ * Default baud rate can be 230400 or 921600 (your choice)
  
- * set 'make monitor' baud rate to 115200bps
+ * After flashing (Reset after flashing)
+ 
+ * 'make monitor' baud rate: 115200bps
  
  * Exit, Exit.
  
