@@ -1,6 +1,8 @@
 This is an example project to illustrate how to use the onboard 128x64 OLED display
 (connected via I2C, hardwired to the pins used by GPIO 4 and 5) in an ESP-IDF project.
 
+This is the exact board used and tested: https://amazon.com/gp/product/B072HBW53G
+
 The project was created using Eclipse (Oxygen) on Windows.
 
 If you figure out how to turn it into a CLion or PlatformIO project, PLEASE fork it and share it on Github.
