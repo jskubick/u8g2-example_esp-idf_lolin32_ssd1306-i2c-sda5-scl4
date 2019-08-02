@@ -61,8 +61,20 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Now, get it to work in Eclipse...
  
- Follow the directions at https://esp-idf.readthedocs.io/en/latest/get-started/eclipse-setup.html (note & follow the alternate setup instructions for Windows,
- if applicable).
+ ###Warning!###
+ 
+ This example project was created using ESP-IDF v3.x. As of 8/2/2019, Espressif is in the process of transitioning ESP-IDF to use CMake as its build system from v4.x onwards.
+ 
+ If you're just getting started with ESP-IDF and are depending upon this example precisely because you aren't
+ sure what you're doing and want a "known-good" example project to follow, I highly recommend using v3.x of ESP-IDF instead.
+ 
+ More precisely, if the instructions at https://docs.espressif.com/projects/esp-idf/en/latest/get-started/eclipse-setup.html still say
+ anything about it being 'experimental' or 'pre-release', I *strongly* advise you to look at the older version of the docs instead:
+ 
+ * For Windows users: https://docs.espressif.com/projects/esp-idf/en/stable/get-started/eclipse-setup-windows.html#eclipse-windows-setup
+ 
+ * For everyone else: https://docs.espressif.com/projects/esp-idf/en/stable/get-started/eclipse-setup.html
+ 
  
  Alternate, time-saving approach that might work if you get lucky (but is likely to be at least slightly broken if you're reading this in 2019 or later). I've learned the hard way that step-by-step directions involving Github projects and IDEs have a half-life of approximately 3-9 months before one or more updates break them. You've been warned. Hence, the previous paragraph.
  
@@ -81,6 +93,14 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  ## Tips
  
  * Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target from within Eclipse. If you get what appears to be an "access denied" error in Eclipse involving the serial port, this is almost certainly the REAL problem.
+ 
+ * If you're running Windows and `make flash` times out, go back into `make menuconfig` and make sure your serial port looks like `COM4` (port number will vary, depending upon how Windows decides to enumerate your USB COM ports). If your serial port name begins with a forward-slash (as in, `/dev/tty`), it's wrong... find out the COMxx name of the USB serial port assigned to your ESP32 by Windows using Device Manager, and change it to that. I remember that in my case, ESP-IDF incorrectly defaulted to something like /dev/usbserial or something to that effect.
+ 
+ * If you have the COM port set up correctly & `make flash` STILL times out, try *this* to forcibly keep the board in bootloader mode and prevent anything you might have already flashed to the board from taking control:
+  1. Unplug the USB cable from your ESP32 board.
+  2. While pressing and holding the 'BOOT' (or 'BT') button on the board, reconnect the USB cable. Don't release the button.
+  3. Relaunch `make flash` while still pressing the button, and don't release it until `make flash` either finishes successfully or dies with an error.
+  4. If it dies with an error or fails to work, try again... being *extra* careful to not release the BT/Boot button while or after plugging in the USB cable.
  
  * If you've gotten spoiled by IntelliJ and Android Studio, remember... Eclipse does NOT (by default, at least) auto-save source files for you when you build. I went through several hours of frustration before discovering this. If changes you've made don't seem to be getting flashed, make sure you saved the changed source files first.
  
