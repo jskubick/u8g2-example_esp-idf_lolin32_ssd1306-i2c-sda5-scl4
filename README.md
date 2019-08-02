@@ -18,7 +18,7 @@ When you get to the section on "Get ESP-IDF", it should look something like this
     cd ~/esp
 	git clone -b v3.2.2 --recursive https://github.com/espressif/esp-idf.git
 	
-**Make sure** that it includes the "-b v3.2.2", with a version that's "v3.2" (though a later release of 3.2, like "v3.2.3", should be fine). Newer releases of ESP-IDF (specifically, v4 and beyond) are likely to break this example project.
+**Make sure** that it includes the "-b v3.2.2", with a version that's "v3.2" (though a later release of 3.2, like "v3.2.3", should be fine). Newer releases of ESP-IDF (specifically, v4 and beyond) are likely to break this example project, because Espressif changed the default build system from 'make' to 'CMake'. It doesn't matter (much) if you're building from the MinGW shell, but will probably cause the project to fail to build in Eclipse.
 
 Be sure you can at least build and run the hello_world project from the esp-idf examples/get-started/ directory, then continue with the directions for setting up Eclipse.
 
