@@ -98,7 +98,9 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
 	<dt>`make flash` times out when you try to run it under Windows</dt>
 	<dd>run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty` or `/dev/usbserial`. Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.</dd>
 	
-	<dt>You have the COM port set up correctly, but `make flash` *still* times out</dt>
+	<dt>
+		You have the COM port set up correctly, but `make flash` *still* times out
+	</dt>
 	<dd>
 		Your board might have something dropping it out of bootloader mode. Try this:
 		1. Unplug the USB cable from your ESP32 board.
@@ -107,9 +109,12 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
 		4. If it fails... try again, being *extra careful* this time to avoid releasing the button.
 	</dd>
 
-	<dt>Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`</dt>
-	<dd>Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.</dd>
-
+	<dt>
+		Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`
+	</dt>
+	<dd>
+		Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.
+	</dd>
 </dl>  
 
  
