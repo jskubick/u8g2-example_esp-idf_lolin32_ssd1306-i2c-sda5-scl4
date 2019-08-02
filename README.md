@@ -92,7 +92,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  ## Troubleshooting
  
  <dl>
-	<dt>Access Denied error involving the serial port</dd>
+	<dt>Access Denied error involving the serial port</dt>
 	<dd>Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target within Eclipse.</dd>
 
 	<dt>`make flash` times out when you try to run it under Windows</dt>
