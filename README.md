@@ -1,34 +1,34 @@
-This is an example project to illustrate how to use the onboard 128x64 OLED display
-(connected via I2C, hardwired to the pins used by GPIO 4 and 5) in an ESP-IDF project.
+This is a complete example Eclipse project to illustrate how to use the onboard 128x64 OLED display
+(connected via I2C, hardwired to the pins used by GPIO 4 and 5) using the u8g2 library in an ESP-IDF **3.x** project.
 
 This is the exact board used and tested: https://amazon.com/gp/product/B072HBW53G
 
-The project was created using Eclipse (Oxygen) on Windows.
+The project was created using Eclipse (originally "Oxygen", most recently 2019.6) on Windows.
 
-If you figure out how to turn it into a CLion or PlatformIO project, PLEASE fork it and share it on Github.
+# Warning
+
+This project uses Git submodules, and *specifically* has dependencies upon ESP-IDF **v3.x**. If you don't know what this means, or why it matters, read every single sentence of the "How to build" section carefully, or it's probably not going to work.
 
 # How to build
 
-If you haven't already done it, go to https://esp-idf.readthedocs.io & follow the directions in the "Get Started" section to download and set up the ESP-IDF
-toolchain. It's extremely well-written (in fact, it's just about the finest documentation I've ever SEEN for an embedded development
-platform. Espressif has fantastic technical writers.)
+Follow the directions at https://docs.espressif.com/projects/esp-idf/en/stable/get-started/ to set up your toolchain.
 
- Make sure you can at least build and run the hello_world project from the esp-idf examples/get-started/ directory, then continue with the directions 
-for setting up Eclipse.
+When you get to the section on "Get ESP-IDF", it should look something like this:
+
+    cd ~/esp
+	git clone -b v3.2.2 --recursive https://github.com/espressif/esp-idf.git
+	
+**Make sure** that it includes the "-b v3.2.2", with a version that's "v3.2" (though a later release of 3.2, like "v3.2.3", should be fine). Newer releases of ESP-IDF (specifically, v4 and beyond) are likely to break this example project.
+
+Be sure you can at least build and run the hello_world project from the esp-idf examples/get-started/ directory, then continue with the directions for setting up Eclipse.
 
 Now, do the following ("c:\path\to\some-directory" is the path to wherever you want your projects to go).
 
 `cd c:\path\to\some-directory`
 
-`git clone https://github.com/jskubick/u8g2-example_esp-idf_lolin32_ssd1306-i2c-sda5-scl4.git`
+`git clone --recursive https://github.com/jskubick/u8g2-example_esp-idf_lolin32_ssd1306-i2c-sda5-scl4.git`
 
-`cd u8g2-example_esp-idf_lolin32_ssd1306-i2c-sda5-scl4`
-
-`mkdir components`
-
-`cd components`
-
-`git clone https://github.com/olikraus/u8g2.git`
+Don't forget the "--recursive" flag. It's important. If you omit it, Git won't fetch the files for u8g2, and compilation will fail.
 
 
 ## Critical next steps:
@@ -61,15 +61,9 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Now, get it to work in Eclipse...
  
-  **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell via `make flash`. Trust me... if you can't get it to build and flash from the shell, **it's not going to magically work in Eclipse, either**. Everything that causes it to be dysfunctional and break in the shell is going to make it even *more* dysfunctional, and cause it to break in Eclipse as well. Fix the shell-build errors *first*.
+  **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell via `make flash`. Trust me... if you can't get it to build and flash from the shell, **it's not going to magically work in Eclipse, either**. 
   
   **WARNING** This entire example project assumes that you're using ESP-IDF v3.x. As of August 2019, 3.x is still the 'stable' release, but the LATEST release is 4.x. ESP-IDF 4.x makes a major change to the way projects are built (using CMake instead of Make), which ultimately changes the steps for getting it to work in Eclipse (and might affect whether you'd necessarily *want* to use Eclipse in the first place, as opposed to CLion, PlatformIO, or something else). 
- 
- If you want this example project to work without major headaches, you **must** have ESP-IDF v3.x installed. If you didn't ***explicitly*** go out of your way to check out a 3.x/stable release of ESP-IDF, you probably got the 'latest' release... which is going to be 4.x or later... and almost certainly won't work with Eclipse using the directions that follow.
- 
- I apologize for the confusion, but it's just a sad fact of life. Build tools and SDKs are, almost by definition, bleeding-edge and volatile. The useful half-life of any tutorial that tries to provide step-by-step instructions is approximately 3-9 months before something breaks it.
- 
- So... assuming you explicitly have ESP-IDF v3.x and you're using Eclipse Oxygen through Eclipse Cpp 2019-06, this should work. The further you diverge, the more likely something is going to at least slightly break.
  
  1. Load Eclipse
  
@@ -110,6 +104,10 @@ Your board might have something dropping it out of bootloader mode. Try this:
 ### Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`
 
 Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.
+
+### An error message implies that "u8g2" is missing
+
+You probably forgot the "--recursive" flag when checking out the project from Github. To fix it, cd to the project's root directory and execute `git submodule update --init --recursive`
 
  
  ## Credits
