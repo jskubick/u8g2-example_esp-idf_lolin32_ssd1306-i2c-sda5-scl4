@@ -61,15 +61,17 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Now, get it to work in Eclipse...
  
- ###Warning!###
+ ###Warning!
  
- This example project was created using ESP-IDF v3.x. As of 8/2/2019, Espressif is in the process of transitioning ESP-IDF to use CMake as its build system from v4.x onwards.
+ This example project was created using ESP-IDF v3.x. As is usually the case with anything related to development, later releases 
+ of just about anything are likely to break things. In this case, Espressif decided to migrate from 'Make' to 'CMake' as of 
+ ESP-IDF v4.0... and as of 8/2/2019, the transition appears to still be... er... underway.
  
- If you're just getting started with ESP-IDF and are depending upon this example precisely because you aren't
- sure what you're doing and want a "known-good" example project to follow, I highly recommend using v3.x of ESP-IDF instead.
+ If you're new to ESP-IDF development and using this project because you want to get your hands on something that's in a 'known good'
+ state and guaranteed to work, **make sure** you're using a **3.x** release of ESP-IDF (when checking it out from Github, this would be the
+ 'stable' branch as of 8/2/2019). Chances are, if you didn't go out of your way to explicitly specify a version when you checked it out, you probably grabbed the 'latest' version... which is probably going to be v4.0 or later, and will probably cause this example project to break.
  
- More precisely, if the instructions at https://docs.espressif.com/projects/esp-idf/en/latest/get-started/eclipse-setup.html still say
- anything about it being 'experimental' or 'pre-release', I *strongly* advise you to look at the older version of the docs instead:
+ You can find the original documentation for setting up a 'Make' (not 'CMake')-based ESP-IDF project in Eclipse here:
  
  * For Windows users: https://docs.espressif.com/projects/esp-idf/en/stable/get-started/eclipse-setup-windows.html#eclipse-windows-setup
  
