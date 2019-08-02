@@ -61,26 +61,15 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Now, get it to work in Eclipse...
  
- ###Warning!
+  **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell. Trust me... if it won't build and flash from the shell, it's going to be at least as dysfunctional in Eclipse, *guaranteed.*
+  
+  **WARNING** This entire example project assumes that you're using ESP-IDF v3.x. As of August 2019, 3.x is still the 'stable' release, but the LATEST release is 4.x. ESP-IDF 4.x makes a major change to the way projects are built (using CMake instead of Make), which ultimately changes the steps for getting it to work in Eclipse (and might affect whether you'd necessarily *want* to use Eclipse in the first place, as opposed to CLion, PlatformIO, or something else). 
  
- This example project was created using ESP-IDF v3.x. As is usually the case with anything related to development, later releases 
- of just about anything are likely to break things. In this case, Espressif decided to migrate from 'Make' to 'CMake' as of 
- ESP-IDF v4.0... and as of 8/2/2019, the transition appears to still be... er... underway.
+ If you want this example project to work without major headaches, you **must** have ESP-IDF v3.x installed. If you didn't ***explicitly*** go out of your way to check out a 3.x/stable release of ESP-IDF, you probably got the 'latest' release... which is goign to be 4.x or later... and almost certainly won't work with Eclipse using the directions that follow.
  
- If you're new to ESP-IDF development and using this project because you want to get your hands on something that's in a 'known good'
- state and guaranteed to work, **make sure** you're using a **3.x** release of ESP-IDF (when checking it out from Github, this would be the
- 'stable' branch as of 8/2/2019). Chances are, if you didn't go out of your way to explicitly specify a version when you checked it out, you probably grabbed the 'latest' version... which is probably going to be v4.0 or later, and will probably cause this example project to break.
+ I apologize for the confusion, but it's just a sad fact of life. Build tools and SDKs are, almost by definition, bleeding-edge and volatile. The useful half-life of any tutorial that tries to provide step-by-step instructions is approximately 3-9 months before something breaks it.
  
- You can find the original documentation for setting up a 'Make' (not 'CMake')-based ESP-IDF project in Eclipse here:
- 
- * For Windows users: https://docs.espressif.com/projects/esp-idf/en/stable/get-started/eclipse-setup-windows.html#eclipse-windows-setup
- 
- * For everyone else: https://docs.espressif.com/projects/esp-idf/en/stable/get-started/eclipse-setup.html
- 
- 
- Alternate, time-saving approach that might work if you get lucky (but is likely to be at least slightly broken if you're reading this in 2019 or later). I've learned the hard way that step-by-step directions involving Github projects and IDEs have a half-life of approximately 3-9 months before one or more updates break them. You've been warned. Hence, the previous paragraph.
- 
- **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell. Trust me... if it won't build and flash from the shell, it's going to be at least as dysfunctional in Eclipse, *guaranteed.*
+ So... assuming you explicitly have ESP-IDF v3.x and you're using Eclipse Oxygen through Eclipse Cpp 2019-06, this should work. The further you diverge, the more likely something is going to at least slightly break.
  
  1. Load Eclipse
  
@@ -90,7 +79,15 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  4. It should find the project to import as "Eclipse project" & select its checkbox. Click `Finish`
  
- 5. To build and flash, you can right-click "Build Targets -> flash" under the Project in Project Explorer.
+ 5. Right-click the project in "Project Explorer" and select 'Properties'.
+
+ 6. Expand "C/C++ Build", then select 'Environment'.
+ 
+ 7. Update the values of IDF_PATH and PATH to reflect your system. 
+     * For IDF_PATH, the '/root/' part is almost guaranteed to be wrong on your system. 
+	 * If you're running Windows and unzipped Espressif's toolchail set into its default destination ("c:\msys32"), you MIGHT not have to make any changes to PATH. 
+ 
+ 8. To build and flash, you can right-click "Build Targets -> flash" under the Project in Project Explorer.
  
  ## Tips
  
@@ -106,7 +103,9 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  * If you've gotten spoiled by IntelliJ and Android Studio, remember... Eclipse does NOT (by default, at least) auto-save source files for you when you build. I went through several hours of frustration before discovering this. If changes you've made don't seem to be getting flashed, make sure you saved the changed source files first.
  
- * If it doesn't build from the commandline, it's NOT going to build in Eclipse. Anything that causes a commandline build to fail will almost certainly cause an Eclipse build to fail as well... except you'll have a much harder time figuring out what the actual problem *is.*
+ * Remember... *if it doesn't build from the commandline, **it's NOT going to build in Eclipse.*** Anything that causes a commandline build to fail will almost certainly cause an Eclipse build to fail as well... except you'll have a much harder time figuring out what the actual problem *is.*
+ 
+ * If Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`, it's probably because your copy of MinGW is somewhere besides c:\msys32. Right-click the project in Project Explorer, expand "C/C+++ Build", and navigate to "Environment". Update the values in PATH and IDF_PATH.
  
  ## Credits
  
