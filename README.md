@@ -95,11 +95,11 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
 	<dt>Access Denied error involving the serial port</dt>
 	<dd>Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target within Eclipse.</dd>
 
-	<dt>`make flash` times out when you try to run it under Windows</dt>
-	<dd>run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty` or `/dev/usbserial`. Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.</dd>
+	<dt>"make flash" times out when you try to run it under Windows</dt>
+	<dd>run "make menuconfig" and make sure your serial port's name looks something like "COM4", and **not** like "/dev/tty" or "/dev/usbserial". Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.</dd>
 	
 	<dt>
-		You have the COM port set up correctly, but `make flash` *still* times out
+		You have the COM port set up correctly, but "make flash" *still* times out
 	</dt>
 	<dd>
 		Your board might have something dropping it out of bootloader mode. Try this:
