@@ -7,9 +7,9 @@ The project was created using Eclipse (originally "Oxygen", most recently 2019.6
 
 # Warning
 
-This project uses Git submodules, and *specifically* has dependencies upon ESP-IDF **v3.x**. If you don't know what this means, or why it matters, read every single sentence of the "How to build" section carefully, or it's probably not going to work.
+This project uses Git submodules, and *specifically* has dependencies upon ESP-IDF **v3.x**. If you don't know what this means, or why it matters, read every single sentence of the "Prerequisites" and "Download" sections carefully, or it's probably not going to work.
 
-# How to build
+# Prerequisites
 
 Follow the directions at https://docs.espressif.com/projects/esp-idf/en/stable/get-started/ to set up your toolchain.
 
@@ -22,7 +22,9 @@ When you get to the section on "Get ESP-IDF", it should look something like this
 
 Be sure you can at least build and run the hello_world project from the esp-idf examples/get-started/ directory, then continue with the directions for setting up Eclipse.
 
-Now, do the following ("c:\path\to\some-directory" is the path to wherever you want your projects to go).
+# Download
+
+Assuming that "c:\path\to\some-directory" is the path to wherever you want the project to go:
 
 `cd c:\path\to\some-directory`
 
@@ -31,7 +33,7 @@ Now, do the following ("c:\path\to\some-directory" is the path to wherever you w
 Don't forget the "--recursive" flag. It's important. If you omit it, Git won't fetch the files for u8g2, and compilation will fail.
 
 
-## Critical next steps:
+# Get it to work with MinGW32:
 
 open the MinGW32 shell, and...
 
@@ -43,7 +45,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
 
  cursor-down to "Serial flasher config".
  
- * Make sure "Default serial port" is set to the correct port. If you're running Windows, this will be something like `COM7`
+ * Make sure "Default serial port" is set to the correct port. If you're running Windows, this will be something like `COM4`
  
  Additional settings from "Serial flasher config" --
  
@@ -59,7 +61,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  If you get lucky, it will successfully compile, and in a few moments you'll be greeted by "Hello!" on the OLED.
  
- ## Now, get it to work in Eclipse...
+ # Get it to work in Eclipse...
  
   **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell via `make flash`. Trust me... if you can't get it to build and flash from the shell, **it's not going to magically work in Eclipse, either**. 
   
@@ -91,7 +93,7 @@ Make sure you don't have an open MinGW32 window where you ran `make monitor` or 
 
 ### `make flash` times out when you try to run it under Windows
 
-Run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty` or `/dev/usbserial`. Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.
+Run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty`, `/dev/ttyUSB0`, or `/dev/COM4`.
 
 ### You have the COM port set up correctly, but "make flash" *still* times out
 	
