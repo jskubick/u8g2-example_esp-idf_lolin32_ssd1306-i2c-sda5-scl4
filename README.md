@@ -91,31 +91,25 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Troubleshooting
  
- <dl>
-	<dt>Access Denied error involving the serial port</dt>
-	<dd>Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target within Eclipse.</dd>
+ ### Access Denied error involving the serial port
 
-	<dt>"make flash" times out when you try to run it under Windows</dt>
-	<dd>run "make menuconfig" and make sure your serial port's name looks something like "COM4", and **not** like "/dev/tty" or "/dev/usbserial". Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's <b>wrong</b>.</dd>
+	Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target within Eclipse.
+
+### `make flash` times out when you try to run it under Windows
+
+	Run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty` or `/dev/usbserial`. Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.
+
+### You have the COM port set up correctly, but "make flash" *still* times out
 	
-	<dt>
-		You have the COM port set up correctly, but "make flash" *still* times out
-	</dt>
-	<dd>
-		Your board might have something dropping it out of bootloader mode. Try this:
-		1. Unplug the USB cable from your ESP32 board.
-		2. While pressing and holding the button marked 'Boot' or 'BT', reconnect the USB cable. Make sure you don't accidentally release the button... not even for an instant.
-		3. Relaunch `make flash`. Remember, the button has to remain continuously pressed from the moment you plug in the USB cable until the moment `make flash` either succeeds or fails.
-		4. If it fails... try again, being *extra careful* this time to avoid releasing the button.
-	</dd>
+	Your board might have something dropping it out of bootloader mode. Try this:
+	1. Unplug the USB cable from your ESP32 board.
+	2. While pressing and holding the button marked 'Boot' or 'BT', reconnect the USB cable. Make sure you don't accidentally release the utton... not even for an instant.
+	3. Relaunch `make flash`. Remember, the button has to remain continuously pressed from the moment you plug in the USB cable until the moment `make flash` either succeeds or fails.
+	4. If it fails... try again, being *extra careful* this time to avoid releasing the button.
+	
+### Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`
 
-	<dt>
-		Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`
-	</dt>
-	<dd>
-		Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.
-	</dd>
-</dl>  
+	Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.
 
  
  ## Credits
