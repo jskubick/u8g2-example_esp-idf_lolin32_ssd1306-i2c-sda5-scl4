@@ -65,7 +65,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
   
   **WARNING** This entire example project assumes that you're using ESP-IDF v3.x. As of August 2019, 3.x is still the 'stable' release, but the LATEST release is 4.x. ESP-IDF 4.x makes a major change to the way projects are built (using CMake instead of Make), which ultimately changes the steps for getting it to work in Eclipse (and might affect whether you'd necessarily *want* to use Eclipse in the first place, as opposed to CLion, PlatformIO, or something else). 
  
- If you want this example project to work without major headaches, you **must** have ESP-IDF v3.x installed. If you didn't ***explicitly*** go out of your way to check out a 3.x/stable release of ESP-IDF, you probably got the 'latest' release... which is goign to be 4.x or later... and almost certainly won't work with Eclipse using the directions that follow.
+ If you want this example project to work without major headaches, you **must** have ESP-IDF v3.x installed. If you didn't ***explicitly*** go out of your way to check out a 3.x/stable release of ESP-IDF, you probably got the 'latest' release... which is going to be 4.x or later... and almost certainly won't work with Eclipse using the directions that follow.
  
  I apologize for the confusion, but it's just a sad fact of life. Build tools and SDKs are, almost by definition, bleeding-edge and volatile. The useful half-life of any tutorial that tries to provide step-by-step instructions is approximately 3-9 months before something breaks it.
  
@@ -93,7 +93,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  * Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target from within Eclipse. If you get what appears to be an "access denied" error in Eclipse involving the serial port, this is almost certainly the REAL problem.
  
- * If you're running Windows and `make flash` times out, go back into `make menuconfig` and make sure your serial port looks like `COM4` (port number will vary, depending upon how Windows decides to enumerate your USB COM ports). If your serial port name begins with a forward-slash (as in, `/dev/tty`), it's wrong... find out the COMxx name of the USB serial port assigned to your ESP32 by Windows using Device Manager, and change it to that. I remember that in my case, ESP-IDF incorrectly defaulted to something like /dev/usbserial or something to that effect.
+ * If you're running Windows and `make flash` times out, go back into `make menuconfig` and make sure your serial port looks like `COM4` (port number will vary, depending upon how Windows decides to enumerate your USB COM ports). If your serial port name begins with a forward-slash (as in, `/dev/tty`), it's wrong... find out the COMxx name of the USB serial port assigned to your ESP32 by Windows using Device Manager, and change it to that. Just to be perfectly clear, if Windows assigns the ESP32's USB serial port to "COM4", the name of your serial port in "make menuconfig" is going to **literally** be `COM4`, not some funky hybrid like `/dev/COM4`. 
  
  * If you have the COM port set up correctly & `make flash` STILL times out, try *this* to forcibly keep the board in bootloader mode and prevent anything you might have already flashed to the board from taking control:
   1. Unplug the USB cable from your ESP32 board.
