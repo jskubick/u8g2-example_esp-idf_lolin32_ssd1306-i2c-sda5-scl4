@@ -61,7 +61,7 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  ## Now, get it to work in Eclipse...
  
-  **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell. Trust me... if it won't build and flash from the shell, it's going to be at least as dysfunctional in Eclipse, *guaranteed.*
+  **DO NOT** attempt to load this project into Eclipse until you've done `make menuconfig` and gotten it to successfully compile and flash at least once using the MinGW32 shell via `make flash`. Trust me... if you can't get it to build and flash from the shell, **it's not going to magically work in Eclipse, either**. Everything that causes it to be dysfunctional and break in the shell is going to make it even *more* dysfunctional, and cause it to break in Eclipse as well. Fix the shell-build errors *first*.
   
   **WARNING** This entire example project assumes that you're using ESP-IDF v3.x. As of August 2019, 3.x is still the 'stable' release, but the LATEST release is 4.x. ESP-IDF 4.x makes a major change to the way projects are built (using CMake instead of Make), which ultimately changes the steps for getting it to work in Eclipse (and might affect whether you'd necessarily *want* to use Eclipse in the first place, as opposed to CLion, PlatformIO, or something else). 
  
@@ -89,23 +89,29 @@ Ensure your LOLIN32 board is connected to the USB port, and that you DON'T alrea
  
  8. To build and flash, you can right-click "Build Targets -> flash" under the Project in Project Explorer.
  
- ## Tips
+ ## Troubleshooting
  
- * Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target from within Eclipse. If you get what appears to be an "access denied" error in Eclipse involving the serial port, this is almost certainly the REAL problem.
- 
- * If you're running Windows and `make flash` times out, go back into `make menuconfig` and make sure your serial port looks like `COM4` (port number will vary, depending upon how Windows decides to enumerate your USB COM ports). If your serial port name begins with a forward-slash (as in, `/dev/tty`), it's wrong... find out the COMxx name of the USB serial port assigned to your ESP32 by Windows using Device Manager, and change it to that. Just to be perfectly clear, if Windows assigns the ESP32's USB serial port to "COM4", the name of your serial port in "make menuconfig" is going to **literally** be `COM4`, not some funky hybrid like `/dev/COM4`. 
- 
- * If you have the COM port set up correctly & `make flash` STILL times out, try *this* to forcibly keep the board in bootloader mode and prevent anything you might have already flashed to the board from taking control:
-  1. Unplug the USB cable from your ESP32 board.
-  2. While pressing and holding the 'BOOT' (or 'BT') button on the board, reconnect the USB cable. Don't release the button.
-  3. Relaunch `make flash` while still pressing the button, and don't release it until `make flash` either finishes successfully or dies with an error.
-  4. If it dies with an error or fails to work, try again... being *extra* careful to not release the BT/Boot button while or after plugging in the USB cable.
- 
- * If you've gotten spoiled by IntelliJ and Android Studio, remember... Eclipse does NOT (by default, at least) auto-save source files for you when you build. I went through several hours of frustration before discovering this. If changes you've made don't seem to be getting flashed, make sure you saved the changed source files first.
- 
- * Remember... *if it doesn't build from the commandline, **it's NOT going to build in Eclipse.*** Anything that causes a commandline build to fail will almost certainly cause an Eclipse build to fail as well... except you'll have a much harder time figuring out what the actual problem *is.*
- 
- * If Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`, it's probably because your copy of MinGW is somewhere besides c:\msys32. Right-click the project in Project Explorer, expand "C/C+++ Build", and navigate to "Environment". Update the values in PATH and IDF_PATH.
+ <dl>
+	<dt>Access Denied error involving the serial port</dd>
+	<dd>Make sure you don't have an open MinGW32 window where you ran `make monitor` or `make monitor flash` when you launch the "flash" build target within Eclipse.</dd>
+
+	<dt>`make flash` times out when you try to run it under Windows</dt>
+	<dd>run `make menuconfig` and make sure your serial port's name looks something like `COM4`, and **not** like `/dev/tty` or `/dev/usbserial`. Just to be perfectly clear, if you're running Windows and your serial port's name begins with a forward-slash... it's **wrong**.</dd>
+	
+	<dt>You have the COM port set up correctly, but `make flash` *still* times out</dt>
+	<dd>
+		Your board might have something dropping it out of bootloader mode. Try this:
+		1. Unplug the USB cable from your ESP32 board.
+		2. While pressing and holding the button marked 'Boot' or 'BT', reconnect the USB cable. Make sure you don't accidentally release the button... not even for an instant.
+		3. Relaunch `make flash`. Remember, the button has to remain continuously pressed from the moment you plug in the USB cable until the moment `make flash` either succeeds or fails.
+		4. If it fails... try again, being *extra careful* this time to avoid releasing the button.
+	</dd>
+
+	<dt>Eclipse gives you an error like, `Program 'xtensa-esp32-elf-gcc' not found in PATH`</dt>
+	<dd>Review steps 5-7 of the instructions for loading the project into Eclipse. Basically, PATH (and almost certainly, IDF_PATH) are pointing to somewhere that is valid on my computer, but not on yours.</dd>
+
+</dl>  
+
  
  ## Credits
  
